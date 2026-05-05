@@ -30,6 +30,8 @@ func TestFailureReasonConstants(t *testing.T) {
 }
 
 func TestModelStatusDefaults(t *testing.T) {
+	// Verify that a zero-value ModelStatus has no transition status, revision states,
+	// or failure info set — important for distinguishing freshly created resources.
 	status := ModelStatus{}
 	assert.Empty(t, status.TransitionStatus)
 	assert.Nil(t, status.ModelRevisionStates)
