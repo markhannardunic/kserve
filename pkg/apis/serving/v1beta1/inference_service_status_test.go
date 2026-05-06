@@ -52,6 +52,13 @@ func TestFailureInfoFields(t *testing.T) {
 	assert.Equal(t, msg, info.Message)
 	assert.Equal(t, revName, info.ModelRevisionName)
 	assert.Equal(t, int64(1700000000), *info.Time)
+
+	// Also verify that a nil Time pointer is handled gracefully (no panic on dereference).
+	infoNoTime := FailureInfo{
+		Reason:  RuntimeUnhealthy,
+		Message: "runtime pod crashed",
+	}
+	assert.Nil(t, infoNoTime.Time)
 }
 
 func TestModelRevisionStates(t *testing.T) {
