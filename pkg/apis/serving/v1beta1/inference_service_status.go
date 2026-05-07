@@ -65,10 +65,11 @@ type ModelRevisionStates struct {
 type ModelState string
 
 const (
-	Pending    ModelState = "Pending"
-	Standby    ModelState = "Standby"
-	Loading    ModelState = "Loading"
-	Loaded     ModelState = "Loaded"
+	Pending      ModelState = "Pending"
+	Standby      ModelState = "Standby"
+	Loading      ModelState = "Loading"
+	Loaded       ModelState = "Loaded"
+	// FailedToLoad indicates the model could not be loaded; check LastFailureInfo for details
 	FailedToLoad ModelState = "FailedToLoad"
 )
 
@@ -84,9 +85,5 @@ type FailureInfo struct {
 type FailureReason string
 
 const (
-	ModelLoadFailed      FailureReason = "ModelLoadFailed"
-	RuntimeUnhealthy     FailureReason = "RuntimeUnhealthy"
-	NoSupportingRuntime  FailureReason = "NoSupportingRuntime"
-	RuntimeNotRecognized FailureReason = "RuntimeNotRecognized"
-	InvalidPredictorSpec FailureReason = "InvalidPredictorSpec"
+	ModelLoadFailed FailureReason = "ModelLoadFailed"
 )
