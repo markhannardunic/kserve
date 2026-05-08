@@ -70,6 +70,16 @@ func TestModelRevisionStates(t *testing.T) {
 	assert.Equal(t, Loading, states.TargetModelState)
 }
 
+// TestModelRevisionStatesOnlyActive checks the case where only the active model
+// state is set and the target state is empty (i.e., no rollout in progress).
+func TestModelRevisionStatesOnlyActive(t *testing.T) {
+	states := ModelRevisionStates{
+		ActiveModelState: Loaded,
+	}
+	assert.Equal(t, Loaded, states.ActiveModelState)
+	assert.Empty(t, states.TargetModelState)
+}
+
 func TestInferenceServiceStatusComponents(t *testing.T) {
 	status := InferenceServiceStatus{
 		Components: map[ComponentType]ComponentStatusSpec{},
@@ -83,5 +93,5 @@ func TestInferenceServiceConditionTypes(t *testing.T) {
 	assert.Equal(t, InferenceServiceConditionType("TransformerReady"), TransformerReady)
 	assert.Equal(t, InferenceServiceConditionType("ExplainerReady"), ExplainerReady)
 	assert.Equal(t, InferenceServiceConditionType("IngressReady"), IngressReady)
-	assert.Equal(t, InferenceServiceConditionType("LatestDeploymentReady"), LatestDeploymentReady)
+	assert.Equal(t, InferenceServiceConditionType("Ready"), InferenceServiceReady)
 }
