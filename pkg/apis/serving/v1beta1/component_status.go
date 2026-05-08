@@ -46,7 +46,8 @@ type ComponentStatusSpec struct {
 type RevisionTrafficStatus struct {
 	// RevisionName is the name of the revision
 	RevisionName string `json:"revisionName,omitempty"`
-	// Percent is the percentage of traffic routed to the revision
+	// Percent is the percentage of traffic routed to the revision.
+	// Valid range is 0 to 100 (inclusive); all revision percents must sum to 100.
 	// +optional
 	Percent *int64 `json:"percent,omitempty"`
 	// Tag is the name tag associated with the revision
