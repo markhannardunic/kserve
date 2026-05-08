@@ -57,33 +57,41 @@ const (
 
 // ModelRevisionStates holds states for active and target model revisions
 type ModelRevisionStates struct {
-	ActiveModelState  ModelState `json:"activeModelState,omitempty"`
-	TargetModelState  ModelState `json:"targetModelState,omitempty"`
+	ActiveModelState ModelState `json:"activeModelState,omitempty"`
+	TargetModelState ModelState `json:"targetModelState,omitempty"`
 }
 
 // ModelState enum
 type ModelState string
 
 const (
-	Pending      ModelState = "Pending"
-	Standby      ModelState = "Standby"
-	Loading      ModelState = "Loading"
-	Loaded       ModelState = "Loaded"
+	Pending ModelState = "Pending"
+	Standby ModelState = "Standby"
+	Loading ModelState = "Loading"
+	Loaded  ModelState = "Loaded"
 	// FailedToLoad indicates the model could not be loaded; check LastFailureInfo for details
 	FailedToLoad ModelState = "FailedToLoad"
 )
 
-// FailureInfo holds information about a failure
-type FailureInfo struct {
-	Reason  FailureReason `json:"reason,omitempty"`
-	Message string        `json:"message,omitempty"`
-	ModelRevisionName string `json:"modelRevisionName,omitempty"`
-	Time    *int64        `json:"time,omitempty"`
-}
-
-// FailureReason enum
+// FailureReason is the reason for a model failure
 type FailureReason string
 
 const (
+	// ModelLoadFailed indicates the model failed to load (e.g. bad weights or OOM)
 	ModelLoadFailed FailureReason = "ModelLoadFailed"
+	// RuntimeUnhealthy indicates the model runtime pod is not healthy
+	RuntimeUnhealthy FailureReason = "RuntimeUnhealthy"
+	// NoSupportingRuntime indicates no runtime supports the requested model type
+	NoSupportingRuntime FailureReason = "NoSupportingRuntime"
+	// InvalidPredictorSpec indicates the predictor spec is invalid
+	InvalidPredictorSpec FailureReason = "InvalidPredictorSpec"
 )
+
+// FailureInfo holds information about a failure
+type FailureInfo struct {
+	Reason            FailureReason `json:"reason,omitempty"`
+	Message           string        `json:"message,omitempty"`
+	ModelRevisionName string        `json:"modelRevisionName,omitempty"`
+	// Time is the Unix timestamp (seconds) when the failure occurred
+	Time *int64 `json:"time,omitempty"`
+}
