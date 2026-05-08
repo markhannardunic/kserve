@@ -28,7 +28,8 @@ type ComponentStatusSpec struct {
 	// LatestRolledoutRevision is the name of the latest rolledout revision
 	// +optional
 	LatestRolledoutRevision string `json:"latestRolledoutRevision,omitempty"`
-	// Traffic holds the traffic split between revisions
+	// Traffic holds the traffic split between revisions.
+	// The sum of all traffic percentages across revisions must equal 100.
 	// +optional
 	Traffic []RevisionTrafficStatus `json:"traffic,omitempty"`
 	// URL is the component endpoint url
@@ -53,7 +54,8 @@ type RevisionTrafficStatus struct {
 	// Tag is the name tag associated with the revision
 	// +optional
 	Tag string `json:"tag,omitempty"`
-	// URL is the URL for the revision traffic
+	// URL is the URL for the revision traffic.
+	// This is only populated when a Tag is set on the revision.
 	// +optional
 	URL *apis.URL `json:"url,omitempty"`
 	// LatestRevision indicates if this is the latest revision
