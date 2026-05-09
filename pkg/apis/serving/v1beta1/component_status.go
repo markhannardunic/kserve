@@ -30,6 +30,8 @@ type ComponentStatusSpec struct {
 	LatestRolledoutRevision string `json:"latestRolledoutRevision,omitempty"`
 	// Traffic holds the traffic split between revisions.
 	// The sum of all traffic percentages across revisions must equal 100.
+	// Note: if no traffic entries are present, 100% of traffic is routed to
+	// the latest ready revision by default.
 	// +optional
 	Traffic []RevisionTrafficStatus `json:"traffic,omitempty"`
 	// URL is the component endpoint url
